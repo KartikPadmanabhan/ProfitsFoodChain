@@ -1,0 +1,63 @@
+#Linear Regression To Calculate Profits For Food Truck
+```{r eval = F}
+require(devtools)
+install_github('rCharts', 'ramnathv')
+rCharts::open_notebook()
+```
+
+Linear Regression Approach To Predict Profits To a Food Truck
+
+We implement linear regression with one variable to predict profits for a food truck. Suppose you are the CEO of a restaurant franchise and are considering different cities for opening a new outlet. The chain already has trucks in various cities and you have data for profits and populations from the cities.
+
+We would like to use this data to help you select which city to expand to next.
+
+##Input Dataset:
+
+The file ex1data1.txt contains the dataset for our linear regression problem. The first column is the population of a city and the second column is the profit of a food truck in that city. A negative value for profit indicates a loss.
+```{r eval = F}
+require(devtools)
+install_github('rCharts', 'ramnathv')
+rCharts::open_notebook()
+```
+```{r echo = T, message = F, cache = F}
+library(googleVis)
+op <- options(gvis.plot.tag='chart')
+require(rCharts)
+options(RCHART_WIDTH = 300, RCHART_HEIGHT = 200)
+knitr::opts_chunk$set(comment = NA, results = 'asis', tidy = F, message = F)
+```
+<style>.rChart {width: 600px; height: 400px;}</style>
+
+## Linear Regression Using rChart
+
+```{r, message=F, warning=F}
+library(googleVis)
+library(rCharts)
+library(ggplot2)
+```
+
+```{r, echo=FALSE, eval=TRUE}
+truckData<-read.csv('ex1data1.txt',header=FALSE)
+colnames(truckData)<-c('Population','Profit')
+dat = fortify(lm(Population~Profit, data = truckData))
+names(dat) = gsub('\\.', '_', names(dat))
+```
+
+```{r gvisScatterChart, results='asis'}
+Scatter1 <- gvisScatterChart(truckData,options=list(legend="none",title="Food Truck", vAxis="{title:'Profit in $10,000s'}",hAxis="{title:'Population of City in 10,000s'}", width=300, height=300))
+plot(Scatter1)
+```
+
+
+```{r chart2, results='asis'}
+p1 <- rPlot(Population ~ Profit, data = dat, type='point')
+p1$layer(y = '_fitted', copy_layer = T, type = 'line',
+  color = list(const = 'red'),
+  tooltip = "function(item){return item._fitted}")
+p1$print('chart2')
+```
+
+
+##Regression Analysis Using Gradient Descent:
+
+
