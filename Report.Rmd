@@ -76,8 +76,32 @@ In batch gradient descent, each iteration performs the update
 
 
 
-```{r, echo=FALSE, eval=TRUE}
+```{r, echo=TRUE, eval=TRUE}
 X<-cbind(1,dat[,1])
+Y<-dat[,2]
+# learning rate and iteration limit
+alpha <- 0.01
+num_iters <- 1000
+theta <- matrix(c(0,0), nrow=2)
+# keep history
+cost_history <- double(num_iters)
+theta_history <- list(num_iters)
+```
+
+```{r, echo=TRUE, eval=TRUE}
+# squared error cost function
+cost <- function(X, y, theta) {
+  sum( (X %*% theta - y)^2 ) / (2*length(y))
+}
+# gradient descent
+for (i in 1:num_iters) {
+  error <- (X %*% theta - Y)
+  delta <- t(X) %*% error / length(Y)
+  theta <- theta - alpha * delta
+  cost_history[i] <- cost(X, Y, theta)
+  theta_history[[i]] <- theta
+}
+
 ```
 
 
