@@ -71,6 +71,9 @@ The objective of linear regression is to minimize the cost function
 where the hypothesis hθ(x) is given by the linear model
 h(x) = theta0 + theta1 * x
 
+In batch gradient descent, each iteration performs the update 
+![alt text](http://www.bindichen.co.uk/uploads/gradient_descent.png "Logo Title Text 1")
+
 
 
 ```{r, echo=FALSE, eval=TRUE}
