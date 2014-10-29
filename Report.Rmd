@@ -57,6 +57,32 @@ p1$layer(y = '_fitted', copy_layer = T, type = 'line',
 p1$print('chart2')
 ```
 
+##Ordinary least squares estimation
+
+In order to determine the optimal estimates of α and β, an estimation method known as ordinary least squares (OLS) was used. In OLS regression, the slope and intercept are chosen such that they minimize the sum of the squared errors, that is, the vertical distance between the predicted y value and the actual y value. These are the values for our residuals and are illustrated for several points in the following diagram:
+
+![alt text](http://resources.esri.com/help/9.3/arcgisengine/java/gp_toolref/spatial_statistics_tools/regression_h.png "Logo Title Text 1")
+
+The following is the values for residuals alpha and beta.
+```{r, echo=TRUE, eval=TRUE}
+
+beta=cov(truckData$Population,truckData$Profit)
+alpha=mean(truckData$Population) - beta*mean(truckData$Profit)
+beta
+alpha
+
+```
+
+### Correlations
+
+Using the Pearson's correlations formula we hereby calculate the correlations for the Population Vs Profit Predictibility of our food trucks.
+```{r, echo=TRUE, eval=TRUE}
+
+r=cov(truckData$Population,truckData$Profit)/(sd(truckData$Population)*sd(truckData$Profit))
+r
+```
+Since the correlation is about ~0.84, this implies that there is a fairly strong positive linear association between the Population Vs Profit Predictibility of our food trucks. The positive association means an increase in population is correlated with the Profits for food truck in that particular city.
+
 
 ##Regression Analysis Using Gradient Descent:
 
